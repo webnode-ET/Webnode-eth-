@@ -5,39 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Web Node_ETH</title>
   <style>
+    /* Reset & base styles */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f5f5f5;
       color: #222;
     }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes rotateLogo {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Header */
     header {
       background: #0a3d62;
       color: white;
-      padding: 20px 40px;
-      text-align: center;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      animation: fadeInDown 1s ease;
     }
+    header img {
+      width: 50px;
+      height: auto;
+      border-radius: 8px;
+      animation: rotateLogo 10s linear infinite;
+    }
+    header div h1 { margin: 0; font-size: 22px; }
+    header div p { margin: 0; font-size: 14px; }
+
+    /* Navigation */
     nav {
       background: #082b44;
       padding: 10px;
       text-align: center;
     }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+    nav a { color: white; margin: 0 15px; font-weight: bold; }
+
+    /* Hero Slider */
     .hero {
-      padding: 60px;
-      text-align: center;
-      background: white;
+      position: relative;
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 300px;
+    }
+    .slides img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .slides img.active { opacity: 1; }
+
+    /* Navigation dots */
+    .dots {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+    }
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 5px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .dot.active { background: rgba(255,255,255,1); }
+
+    /* Hero Text */
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+    .hero-text h2 { font-size: 32px; margin-bottom: 10px; }
+    .hero-text p { font-size: 18px; }
+
+    /* Sections */
     .section {
       padding: 40px;
       background: white;
       margin: 20px auto;
-      width: 85%;
+      width: 90%;
+      max-width: 1200px;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
@@ -52,28 +132,76 @@
       border-radius: 10px;
       border: 1px solid #eee;
       text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    /* Footer */
     footer {
       background: #0a3d62;
       color: white;
       padding: 20px;
       text-align: center;
       margin-top: 30px;
+      font-size: 14px;
+    }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .hero-text h2 { font-size: 24px; }
+      .hero-text p { font-size: 16px; }
+      header div h1 { font-size: 18px; }
+      header div p { font-size: 12px; }
     }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <h1>Web Node_ETH</h1>
-    <p>Digital Solutions for Modern Businesses</p>
-  </header>  <nav>
+    <img src="wnlogo.png" alt="Web Node_ETH Logo" />
+    <div>
+      <h1>Web Node_ETH</h1>
+      <p>Digital Solutions for Modern Businesses</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
     <a href="#services">Services</a>
     <a href="#products">Products</a>
     <a href="#contact">Contact</a>
-  </nav>  <section class="hero">
-    <h2>Your Vision, Our Technology.</h2>
-    <p>We build systems, websites, cards, and digital tools that elevate your business.</p>
-  </section>  <section id="services" class="section">
+  </nav>
+
+  <!-- Hero Slider -->
+  <section class="hero">
+    <div class="slider" id="heroSlider">
+      <div class="slides">
+        <img src="Hero1.png" alt="Hero Image 1" class="active">
+        <img src="Hero2.png" alt="Hero Image 2">
+        <img src="Hero3.png" alt="Hero Image 3">
+      </div>
+      <!-- Navigation dots -->
+      <div class="dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+      </div>
+    </div>
+    <div class="hero-text">
+      <h2>Your Vision, Our Technology</h2>
+      <p>We build systems, websites, cards, and digital tools that elevate your business.</p>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="section">
     <h2>Our Services</h2>
     <div class="services">
       <div class="card"><h3>Website Development</h3><p>Custom and template-based websites.</p></div>
@@ -82,20 +210,68 @@
       <div class="card"><h3>System Solutions</h3><p>Custom software for businesses and events.</p></div>
       <div class="card"><h3>Technical Support</h3><p>Maintenance and updates for sold systems.</p></div>
     </div>
-  </section>  <section id="products" class="section">
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="section">
     <h2>Our Products</h2>
     <div class="products">
       <div class="card"><h3>Bingo WN</h3><p>Smart Bingo system with automation and Amharic support.</p></div>
       <div class="card"><h3>E-Business Card</h3><p>Modern digital contact card solutions.</p></div>
       <div class="card"><h3>E Thank-You for Coming</h3><p>QR video gift card for weddings and events.</p></div>
+      <div class="card"><h3>Event Management System</h3><p>Organize, manage, and track events with ease.</p></div>
     </div>
-  </section>  <section id="contact" class="section">
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
     <h2>Contact Us</h2>
-    <p>Email: webnode.eth@gmail.com</p>
-    <p>Telegram: @WebNodeETH</p>
-    <p>Phone: +251-9XX-XXX-XXX</p>
-  </section>  <footer>
+    <p>Email: <a href="mailto:webnode.eth@gmail.com">webnode.eth@gmail.com</a></p>
+    <p>Telegram: <a href="https://t.me/WebNodeETH" target="_blank">@WebNodeETH</a></p>
+    <p>Phone: <a href="tel:+251955498955">+251-955-498-955</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
     Powered by Web Node_ETH © 2025
   </footer>
+
+  <!-- Hero Slider JavaScript (Auto + Swipe + Dots) -->
+  <script>
+    const slides = document.querySelectorAll('.slides img');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 0;
+    let startX = 0;
+    let endX = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+      currentIndex = index;
+    }
+
+    // Auto-slide every 4 seconds
+    setInterval(() => {
+      let nextIndex = (currentIndex + 1) % slides.length;
+      showSlide(nextIndex);
+    }, 4000);
+
+    // Swipe support for mobile
+    const slider = document.getElementById('heroSlider');
+    slider.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+    slider.addEventListener('touchend', e => {
+      endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) showSlide((currentIndex + 1) % slides.length);
+      else if (endX - startX > 50) showSlide((currentIndex - 1 + slides.length) % slides.length);
+    });
+
+    // Clickable dots
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-index'));
+        showSlide(index);
+      });
+    });
+  </script>
 </body>
-                                                      </html>
+</html>
